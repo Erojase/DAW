@@ -6,9 +6,14 @@ let userGuess;
 
 document.addEventListener('DOMContentLoaded', ()=>{
     initGame();
-    btnGuess.addEventListener('click', Game)
+    btnGuess.addEventListener('click', Game);
 });
 
+document.addEventListener('keypress', (e)=>{
+    if (e.key == "Enter") {
+       Game();
+    }
+});
 
 function initGame() {
 	textBox.innerHTML = "";
