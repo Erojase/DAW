@@ -2,7 +2,7 @@ console.time("tiempo");
 
 
 let primo = true;
-async function start(len) {
+function start(len) {
 	for (let n = 2; n <= len; n++) {
         if (comPrimo(n)){
             console.log(n);
@@ -27,8 +27,6 @@ function comPrimo(num) {
     }
     
     //garbage collection
-    primo = null 
-    num = null;
     return false;
 }
 
