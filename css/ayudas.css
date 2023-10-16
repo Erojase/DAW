@@ -1,0 +1,46 @@
+
+/* background colors */
+.bgwhite{
+    background-color: white;
+}
+.bgred{
+    background-color: red;
+}
+.bgblack{
+    background-color: black;
+}
+.bggreen{
+    background-color: green;
+}
+.bgblue{
+    background-color: blue;
+}
+.bgyellow{
+    background-color: yellow;
+}
+
+/* alts */
+.alt500{
+    height: 500px;
+}
+.alt250{
+    height: 250px;
+}
+.alt200{
+    height: 200px;
+}
+.alt150{
+    height: 150px;
+}
+.alt100{
+    height: 100px;
+}
+.alt75{
+    height: 75px;
+}
+.alt50{
+    height: 50px;
+}
+.alt25{
+    height: 25px;
+}
