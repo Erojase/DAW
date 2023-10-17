@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- tag::beans[] -->
+        <bean id="servicioComunicacionCorreoElectronico"
+                class="es.joyfe.daw.des.servicio.ServicioComunicacionCorreoElectronico">
+        </bean>
+        
+        <bean id="servicioComunicacionPostal"
+                class="es.joyfe.daw.des.servicio.ServicioComunicacionCorreoPostal">
+        </bean>
+        
+        <!-- <bean id="servicioComunicacionPostal"
+                class="es.joyfe.daw.des.ioc.ServicioComunicacionCorreoTelegram">
+        </bean> -->
+        
+        <bean id="oficinaAttCliente"
+                class="es.joyfe.daw.des.oficina.OficinaAtencionCliente">
+                <!--nota: el nombre de la propiedad tiene que corresponderse con el 
+                    método setServicioComunicaciones, aplica la "Convención sobre configuración"
+                   
+                <property name="servicioComunicacion" ref="servicioComunicacionCorreoElectronico" />
+                -->
+                <constructor-arg ref="servicioComunicacionCorreoElectronico"/>
+        </bean>
+<!-- end::beans[] -->
+
+</beans>
