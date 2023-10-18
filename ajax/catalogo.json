@@ -1,0 +1,42 @@
+{
+    "catalogo": {
+        "categoria": "Electrónica",
+        "productos": [
+            {
+                "id": 101,
+                "nombre": "Smartphone Android",
+                "marca": "Samsung",
+                "precio": 399.99,
+                "stock": 25
+            },
+            {
+                "id": 102,
+                "nombre": "Laptop Ultrabook",
+                "marca": "Dell",
+                "precio": 849.99,
+                "stock": 10
+            },
+            {
+                "id": 103,
+                "nombre": "Smart TV 4K",
+                "marca": "LG",
+                "precio": 599.99,
+                "stock": 15
+            },
+            {
+                "id": 104,
+                "nombre": "Auriculares Inalámbricos",
+                "marca": "Sony",
+                "precio": 79.99,
+                "stock": 50
+            },
+            {
+                "id": 105,
+                "nombre": "Tableta Android",
+                "marca": "Lenovo",
+                "precio": 199.99,
+                "stock": 20
+            }
+        ]
+    }
+}
