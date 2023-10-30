@@ -6,44 +6,65 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 contract Registro {
     address private owner;
 
-    struct user{
+    uint256 private balance;
+
+    struct user {
         string nombre;
         uint256 edad;
     }
 
-    mapping (address => user) userdict;
+    mapping(address => user) userdict;
 
+    modifier onlyOwner() {
+        require(msg.sender == owner);
+        _;
+    }
 
     constructor() {
         owner = msg.sender;
-
     }
 
-    function getNombre(address targetAdress) public view returns (string memory Nombre){
-        if (msg.sender == owner) {
-            return userdict[targetAdress].nombre;
-        } else if (msg.sender == targetAdress) {
-            return userdict[msg.sender].nombre;
-        }
+    function getNombre(
+        address targetAdress
+    ) public view onlyOwner returns (string memory Nombre) {
+        require(msg.sender != address(0), "La direccion no puede ser cero.");
+        return userdict[targetAdress].nombre;
     }
 
-    function getEdad(address targetAdress) public view returns (uint256 Edad) {
-        if (msg.sender == owner) {
-            return userdict[targetAdress].edad;
-        } else if (msg.sender == targetAdress) {
-            return userdict[msg.sender].edad;
-        }
+    function getMyNombre() public view returns (string memory Nombre) {
+        return userdict[msg.sender].nombre;
     }
 
-    function getAll(address targetAdress) public view returns (string memory nombre, uint256 Edad) {
-        if (msg.sender == owner) {
-            return (userdict[targetAdress].nombre, userdict[targetAdress].edad);
-        } else if (msg.sender == targetAdress) {
-            return (userdict[msg.sender].nombre, userdict[msg.sender].edad);
-        }
+    function getEdad(
+        address targetAdress
+    ) public view onlyOwner returns (uint256 Edad) {
+        require(msg.sender != address(0), "La direccion no puede ser cero.");
+        return userdict[targetAdress].edad;
     }
 
-    function sauldar(address targetAdress) public view returns (string memory saludo) {
+    function getMyEdad() public view returns (uint256 Edad) {
+        return userdict[msg.sender].edad;
+    }
+
+    function getAll(
+        address targetAdress
+    ) public view onlyOwner returns (string memory nombre, uint256 Edad) {
+        require(msg.sender != address(0), "La direccion no puede ser cero.");
+        return (userdict[targetAdress].nombre, userdict[targetAdress].edad);
+    }
+
+    function getMyAll()
+        public
+        view
+        returns (string memory nombre, uint256 Edad)
+    {
+        return (userdict[msg.sender].nombre, userdict[msg.sender].edad);
+    }
+
+    function sauldar(
+        address targetAdress
+    ) public view returns (string memory saludo) {
+        require(msg.sender != address(0), "La direccion no puede ser cero.");
         address workingAddress;
         if (msg.sender == owner) {
             workingAddress = targetAdress;
@@ -51,25 +72,35 @@ contract Registro {
             workingAddress = msg.sender;
         }
 
-        return string.concat("Buenas tardes, soy ",userdict[workingAddress].nombre,
-         " y mi edad es ", Strings.toString(userdict[workingAddress].edad));
+        return
+            string.concat(
+                "Buenas tardes, soy ",
+                userdict[workingAddress].nombre,
+                " y mi edad es ",
+                Strings.toString(userdict[workingAddress].edad)
+            );
     }
 
-    function registrarNombre(string memory _nombre, address targetAdress) public {
-        if (msg.sender == owner) {
-            userdict[targetAdress].nombre = _nombre;
-        } else if (msg.sender == targetAdress) {
-            userdict[msg.sender].nombre = _nombre;
-        }
+    function registrarUsuario(
+        string memory _nombre,
+        uint256 _edad,
+        address targetAdress
+    ) public onlyOwner {
+        require(msg.sender != address(0), "La direccion no puede ser cero.");
+        require(bytes(_nombre).length == 0, "El nombre no puede estar vacio");
+        userdict[targetAdress].nombre = _nombre;
+        userdict[targetAdress].edad = _edad;
     }
 
-    function registrarEdad(uint256 _edad, address targetAdress) public {
-        if (msg.sender == owner) {
-            userdict[targetAdress].edad = _edad;
-        } else if (msg.sender == targetAdress) {
-            userdict[msg.sender].edad = _edad;
-        }
+    function registrarme(string memory _nombre, uint256 _edad) public payable {
+        require(msg.value == 0.5 ether, "Must pay 0.5 ETH");
+        require(bytes(_nombre).length == 0, "El nombre no puede estar vacio");
+        balance += msg.value;
+        userdict[msg.sender].nombre = _nombre;
+        userdict[msg.sender].edad = _edad;
     }
 
-   
+    function retrieve() public onlyOwner {
+        payable(owner).transfer(balance);
+    }
 }
