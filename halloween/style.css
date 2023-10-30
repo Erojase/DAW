@@ -1,0 +1,61 @@
+:root {
+    --orange: rgb(255, 102, 0);
+  }
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Nosifer';
+}
+
+body{
+    background-color: black;
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-around;
+    color: white;
+    background-image: url(./images/web_header.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.navbar > img{
+    width: 200px;
+    margin: 1%;
+}
+
+.navmenu{
+    width: 65%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    max-width: 700px;
+}
+
+.navmenu > a {
+    text-decoration: none;
+    color: white;
+    margin-bottom: 5%;
+}
+
+.navmenu > a:first-child {
+    text-decoration: none;
+    color: var(--orange);
+}
+
+.main{
+    background-color: red;
+    display: flex;
+    height: 55vh;
+}
+
+.main > img{
+    width: 700px;
+}
+
+.main > div{
+    background-color: blue;
+    width: 50%;
+}
+
