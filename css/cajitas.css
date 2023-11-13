@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+}
+
+.cajitas{
+    display: flex;
+    flex-direction: column;
+    margin-left: 30%;
+    width: 30%;
+    height: 30vh;
+    border: dashed red 3px;
+}
+
+.cajitas > div{
+    padding: 10px;
+    width: min-content;
+}
+
+._static{
+    border: 1px solid rgb(0, 153, 255);
+    position: static;
+}
+
+._relative{
+    border: 1px solid rgb(0, 153, 255);
+    position: relative;
+    margin-top: 4.5%;
+}
+
+._absolute{
+    border: 1px solid rgb(0, 153, 255);
+    position: absolute;
+    margin-top: 130px;
+}
+
+._fixed{
+    border: 1px solid rgb(0, 153, 255);
+    position: fixed;
+    top: 210px;
+}
