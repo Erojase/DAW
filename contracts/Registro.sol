@@ -2,103 +2,77 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "contracts/UserList.sol";
 
 contract Registro {
     address private owner;
 
-    struct user {
-        string nombre;
-        uint256 edad;
-        uint256 prepayCount;
-    }
-
-    mapping(address => user) userdict;
+    UserList private Users;
 
     modifier onlyOwner() {
         require(msg.sender == owner);
         _;
     }
+    modifier whitelisted() {
+        require(Users.isUserWhitelisted(msg.sender));
+        _;
+    }
 
     event datosActualizados(address user, string nombre, uint256 edad);
 
-    constructor() {
+    constructor()
+    {
         owner = msg.sender;
+        Users = new UserList();
     }
 
-    receive() external payable { 
-        userdict[msg.sender].prepayCount ++;
-        emit datosActualizados(msg.sender, userdict[msg.sender].nombre, userdict[msg.sender].edad);
-    }
-
-    function getNombre(address targetAdress) public view onlyOwner returns (string memory Nombre){
+    function getNombre(address targetAdress) public view onlyOwner returns (string memory){
         require(msg.sender != address(0), "La direccion no puede ser cero.");
-        return userdict[targetAdress].nombre;
+        return Users.getUserName(targetAdress);
     }
 
-    function getMyNombre() public view returns (string memory Nombre) {
-        return userdict[msg.sender].nombre;
+    function getMyNombre() public view whitelisted returns (string memory Nombre) {
+        return Users.getUserName(msg.sender);
     }
 
     function getEdad(address targetAdress) public onlyOwner view returns (uint256 Edad) {
         require(msg.sender != address(0), "La direccion no puede ser cero.");
-        return userdict[targetAdress].edad;
+        return Users.getUserAge(targetAdress);
     }
 
-    function getMyEdad() public view returns (uint256 Edad) {
-        return userdict[msg.sender].edad;
+    function getMyEdad() public view whitelisted returns (uint256 Edad) {
+        return Users.getUserAge(msg.sender);
     }
 
-    function getAll(address targetAdress) public onlyOwner view returns (string memory, uint256, uint256){
+    function getAllInfo(address targetAdress) public onlyOwner view returns (string memory, uint256, string memory){
         require(msg.sender != address(0), "La direccion no puede ser cero.");
-        return (userdict[targetAdress].nombre, userdict[targetAdress].edad, userdict[targetAdress].prepayCount);
-    }
-
-    function getMyAll() public view returns (string memory, uint256, uint256){
-        return (userdict[msg.sender].nombre, userdict[msg.sender].edad, userdict[msg.sender].prepayCount);
-    }
-
-    function sauldar(address targetAdress) public view returns (string memory saludo)
-    {
-        require(msg.sender != address(0), "La direccion no puede ser cero.");
-        address workingAddress;
-        if (msg.sender == owner) {
-            workingAddress = targetAdress;
-        } else if (msg.sender == targetAdress) {
-            workingAddress = msg.sender;
+        string memory whitelist = "User is blacklisted";
+        if (Users.isUserWhitelisted(targetAdress)) {
+            whitelist = "User is whitelisted";
         }
-
-        return string.concat(
-                "Buenas tardes, soy ",
-                userdict[workingAddress].nombre,
-                " y mi edad es ",
-                Strings.toString(userdict[workingAddress].edad)
-            );
+        return (Users.getUserName(targetAdress), Users.getUserAge(targetAdress), whitelist);
     }
 
-    function registrarUsuario(string memory _nombre,uint256 _edad, address targetAdress) public onlyOwner {
-        require(msg.sender != address(0), "La direccion no puede ser cero.");
-        require(bytes(_nombre).length > 0, "El nombre no puede estar vacio");
-        userdict[targetAdress].nombre = _nombre;
-        userdict[targetAdress].edad = _edad;
-    }
-
-    function registrarme(string memory _nombre, uint256 _edad) public payable{
-        if (userdict[msg.sender].prepayCount > 0) {
-            require(msg.value == 0.25 ether, "Must pay 0.25 ETH");
-        } else {
-            require(msg.value == 0.5 ether, "Must pay 0.5 ETH");
+    function getAllMyInfo() public view whitelisted returns (string memory, uint256, string memory){
+        string memory whitelist = "User is blacklisted";
+        if (Users.isUserWhitelisted(msg.sender)) {
+            whitelist = "User is whitelisted";
         }
-        require(bytes(_nombre).length > 0, "El nombre no puede estar vacio");
-        userdict[msg.sender].nombre = _nombre;
-        userdict[msg.sender].edad = _edad;
-        userdict[msg.sender].prepayCount --;
+        return (Users.getUserName(msg.sender), Users.getUserAge(msg.sender), whitelist);
+    }
+
+    function registrarme(string memory _nombre, uint256 _edad) public{
+        Users.addUser(msg.sender, _nombre, _edad);
+    }
+
+    function otorgarAcceso() public payable{
+        require(msg.value >= 0.05 ether, "must pay at least 0,05 ETH");
+        Users.whitelistUser(msg.sender);
+        Users.approve(address(Users), 1);
+        Users.transferFrom(address(Users), msg.sender, 1);
     }
 
     function getBalance() public view onlyOwner returns(uint256){
         return address(this).balance;
-    }
-
-    function retrieve() public onlyOwner {
-        payable(owner).transfer(address(this).balance);
     }
 }
