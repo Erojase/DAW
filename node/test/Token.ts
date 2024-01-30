@@ -39,5 +39,9 @@ describe("Token", function () {
 
             expect(await token.owner()).to.equal(owner.address);
         })
+        it("Transfer tokens test",async () => {
+            const { owner, token } = await loadFixture(getContractDetails);
+            // token.transfer()
+        })
     })
 })

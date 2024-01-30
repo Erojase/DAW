@@ -20,7 +20,7 @@ async function lockDeploy() {
   
 }
 
-async function tokerDeploy() {
+async function tokenDeploy() {
   
   const token = await ethers.deployContract("Token");
 
@@ -29,7 +29,12 @@ async function tokerDeploy() {
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
-lockDeploy().catch((error) => {
+// lockDeploy().catch((error) => {
+//   console.error(error);
+//   process.exitCode = 1;
+// });
+
+tokenDeploy().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
