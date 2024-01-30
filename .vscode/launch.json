@@ -1,0 +1,43 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "JoyfeApplication",
+            "request": "launch",
+            "mainClass": "com.edu.joyfe.JoyfeApplication",
+            "projectName": "com.edu-joyfe"
+        },
+        {
+            "type": "java",
+            "name": "EduApplication",
+            "request": "launch",
+            "mainClass": "com.database.edu.EduApplication",
+            "projectName": "edu"
+        },
+        {
+            "type": "java",
+            "name": "EjercicioApplication",
+            "request": "launch",
+            "args": "C:\\Users\\eduardo.rojas.sanche\\DAW\\JDBC_ex2\\ejercicio\\exercise_resources\\exercise.properties",
+            "mainClass": "com.jdbc2.ejercicio.EjercicioApplication",
+            "projectName": "ejercicio"
+        },
+        {
+            "type": "java",
+            "name": "JoyfeApplication(1)",
+            "request": "launch",
+            "mainClass": "com.edu.joyfe.JoyfeApplication",
+            "projectName": "joyfe"
+        }
+    ]
+}

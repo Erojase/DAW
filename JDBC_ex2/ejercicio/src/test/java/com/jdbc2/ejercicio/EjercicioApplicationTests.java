@@ -1,10 +1,10 @@
-package com.database.edu;
+package com.jdbc2.ejercicio;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EduApplicationTests {
+class EjercicioApplicationTests {
 
 	@Test
 	void contextLoads() {
