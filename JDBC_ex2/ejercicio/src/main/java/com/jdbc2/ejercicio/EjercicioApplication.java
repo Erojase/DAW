@@ -7,5 +7,4 @@ public class EjercicioApplication {
 		EntryPoint entry = new EntryPoint(args);
 	}
 
-
 }

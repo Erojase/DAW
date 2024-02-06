@@ -1,4 +1,4 @@
-package com.jdbc2.ejercicio;
+package com.jdbc2.ejercicio.Utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,13 +12,13 @@ public class FileSystem {
 
     }
 
-    public static List<String> getFileLines(String path) {
-        List<String> result = new ArrayList<String>();
+    public static List<String[]> getFileLines(String path) {
+        List<String[]> result = new ArrayList<String[]>();
         try {
             File thisFile = new File(path);
             Scanner reader = new Scanner(thisFile);
             while (reader.hasNextLine()) {
-                String data = reader.nextLine();
+                String[] data = reader.nextLine().replaceAll("\"", "").split(",");
                 result.add(data);
             }
             reader.close();
@@ -29,13 +29,14 @@ public class FileSystem {
         return result;
     }
 
-    public static List<String> listFolderFiles(String path) {
-        List<String> filePaths = new ArrayList<String>();
-
+    public static List<String> listFolderCSVs(String path, List<String> filePaths) {
         File folder = new File(path);
-        for (final File fileEntry : folder.listFiles()) {
-            if (!fileEntry.isDirectory()) {
+
+        for (File fileEntry : folder.listFiles()) {
+            if (fileEntry.isFile()) {
                 filePaths.add(fileEntry.getAbsolutePath());
+            } else if (fileEntry.isDirectory()) {
+                listFolderCSVs(fileEntry.getAbsolutePath(), filePaths);
             }
         }
         return filePaths;
