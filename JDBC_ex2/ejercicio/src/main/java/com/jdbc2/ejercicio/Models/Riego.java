@@ -1,6 +1,11 @@
 package com.jdbc2.ejercicio.Models;
 
-public class Riego {
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.jdbc2.ejercicio.Database.Interfaces.IQueriableResource;
+
+public class Riego implements IQueriableResource{
 
     private int id;
     private String tipo;
@@ -41,5 +46,17 @@ public class Riego {
     
     public void SetId(int id){
         this.id = id;
+    }
+
+    @Override
+    public PreparedStatement SelectById(int id) throws SQLException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'SelectById'");
+    }
+
+    @Override
+    public PreparedStatement Insert() throws SQLException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'Insert'");
     }
 }

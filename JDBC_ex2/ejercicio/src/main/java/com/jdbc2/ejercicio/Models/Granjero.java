@@ -1,15 +1,20 @@
 package com.jdbc2.ejercicio.Models;
 
-public class Granjero {
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.jdbc2.ejercicio.Database.Interfaces.IQueriableResource;
+
+public class Granjero implements IQueriableResource{
 
     private int id;
     private String nombre;
     private String descripcion;
-    private int dinero;
+    private double dinero;
     private int puntos;
     private int nivel;
 
-    public Granjero(int id, String nombre, String descripcion, int dinero, int puntos, int nivel){
+    public Granjero(int id, String nombre, String descripcion, double dinero, int puntos, int nivel){
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -32,11 +37,11 @@ public class Granjero {
     public void SetPuntos(int puntos){
         this.puntos = puntos;
     }
-    public int GetDinero(){
+    public double GetDinero(){
         return this.dinero;
     }
     
-    public void SetDinero(int dinero){
+    public void SetDinero(double dinero){
         this.dinero = dinero;
     }
     public String GetDescripcion(){
@@ -59,5 +64,17 @@ public class Granjero {
     
     public void SetId(int id){
         this.id = id;
+    }
+
+    @Override
+    public PreparedStatement SelectById(int id) throws SQLException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'SelectById'");
+    }
+
+    @Override
+    public PreparedStatement Insert() throws SQLException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'Insert'");
     }
 }

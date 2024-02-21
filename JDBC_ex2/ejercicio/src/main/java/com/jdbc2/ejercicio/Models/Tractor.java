@@ -1,6 +1,12 @@
 package com.jdbc2.ejercicio.Models;
 
-public class Tractor {
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.jdbc2.ejercicio.Database.DataSource;
+import com.jdbc2.ejercicio.Database.Interfaces.IQueriableResource;
+
+public class Tractor implements IQueriableResource {
 
     private int id;
     private String modelo;
@@ -50,5 +56,23 @@ public class Tractor {
     
     public void SetId(int id){
         this.id = id;
+    }
+
+    @Override
+    public PreparedStatement SelectById(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'SelectById'");
+    }
+
+    @Override
+    public PreparedStatement Insert() throws SQLException {
+        String sql = "INSERT INTO tractors (modelo, velocidad, precio_venta, id_construccion) VALUES (?, ?, ?, ?)";
+        PreparedStatement statement =  DataSource.getConnection().prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.setString(2, modelo);
+        statement.setInt(3, velocidad);
+        statement.setInt(4, precio_venta);
+        statement.setInt(5, id_construccion);
+        return statement;
     }
 }

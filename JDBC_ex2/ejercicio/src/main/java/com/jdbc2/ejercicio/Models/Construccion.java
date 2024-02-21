@@ -1,13 +1,18 @@
 package com.jdbc2.ejercicio.Models;
 
-public class Construccion {
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.jdbc2.ejercicio.Database.Interfaces.IQueriableResource;
+
+public class Construccion implements IQueriableResource{
 
     private int id;
     private String nombre;
-    private int precio;
+    private double precio;
     private int id_granjero;
 
-    public Construccion(int id, String nombre, int precio, int id_granjero){
+    public Construccion(int id, String nombre, double precio, int id_granjero){
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -21,7 +26,7 @@ public class Construccion {
     public void SetId_granjero(int id_granjero){
         this.id_granjero = id_granjero;
     }
-    public int GetPrecio(){
+    public double GetPrecio(){
         return this.precio;
     }
     
@@ -41,5 +46,17 @@ public class Construccion {
     
     public void SetId(int id){
         this.id = id;
+    }
+
+    @Override
+    public PreparedStatement SelectById(int id) throws SQLException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'SelectById'");
+    }
+
+    @Override
+    public PreparedStatement Insert() throws SQLException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'Insert'");
     }
 }
