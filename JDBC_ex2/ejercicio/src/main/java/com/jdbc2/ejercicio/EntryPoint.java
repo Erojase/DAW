@@ -2,8 +2,8 @@ package com.jdbc2.ejercicio;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Hashtable;
+import java.util.Map;
 import java.util.Properties;
 
 import com.jdbc2.ejercicio.Utils.CSVParser;
@@ -28,11 +28,12 @@ public class EntryPoint {
             properties.getProperty("DUPLICATES_LOG_PATH"));
 
 
-        List<String> csvPathList = new ArrayList<String>();
+        Map<String, String> csvPathList = new Hashtable<>();
         FileSystem.listFolderCSVs(properties.getProperty("CSV_DIR_PATH"), csvPathList);
         
 
-        for (String csv : csvPathList) {
+        for (String csvName : csvPathList.keySet()) {
+            String csv = csvPathList.get(csvName);
             CSVParser.loadCSV(csv);
         }
     }
