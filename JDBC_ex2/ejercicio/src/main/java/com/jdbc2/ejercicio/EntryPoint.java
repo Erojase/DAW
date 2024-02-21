@@ -104,9 +104,9 @@ public class EntryPoint {
                         try {
                             riegos.add(new Riego(
                                     Integer.parseInt((String) dict.get("id")),
-                                    (String) dict.get("nombre"),
-                                    Double.parseDouble((String) dict.get("precio")),
-                                    Integer.parseInt((String) dict.get("id_granjero"))));
+                                    (String) dict.get("tipo"),
+                                    Integer.parseInt((String) dict.get("velocidad")),
+                                    Integer.parseInt((String) dict.get("id_plantacion"))));
                         } catch (Exception e) {
                             Logger.LogError(e.toString());
                         }
@@ -119,8 +119,9 @@ public class EntryPoint {
                             tractores.add(new Tractor(
                                     Integer.parseInt((String) dict.get("id")),
                                     (String) dict.get("nombre"),
-                                    Double.parseDouble((String) dict.get("precio")),
-                                    Integer.parseInt((String) dict.get("id_granjero"))));
+                                    Integer.parseInt((String) dict.get("velocidad")),
+                                    Double.parseDouble((String) dict.get("precio_venta")),
+                                    Integer.parseInt((String) dict.get("id_construccion"))));
                         } catch (Exception e) {
                             Logger.LogError(e.toString());
                         }
