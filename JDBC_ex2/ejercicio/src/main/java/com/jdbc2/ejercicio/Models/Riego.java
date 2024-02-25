@@ -3,6 +3,7 @@ package com.jdbc2.ejercicio.Models;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.jdbc2.ejercicio.Database.DataSource;
 import com.jdbc2.ejercicio.Database.Interfaces.IQueriableResource;
 
 public class Riego implements IQueriableResource{
@@ -56,7 +57,13 @@ public class Riego implements IQueriableResource{
 
     @Override
     public PreparedStatement Insert() throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Insert'");
+        // id tipo velocidad id_plantacion
+        String sql = "INSERT INTO plantaciones (id, tipo, velocidad, id_plantacion) VALUES (?, ?, ?)";
+        PreparedStatement statement =  DataSource.getConnection().prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.setString(2, tipo);
+        statement.SetInt(3, velocidad);
+        statement.SetInt(4, id_plantacion);
+        return statement;
     }
 }

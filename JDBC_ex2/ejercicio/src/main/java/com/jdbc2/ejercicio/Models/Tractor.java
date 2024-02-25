@@ -66,7 +66,7 @@ public class Tractor implements IQueriableResource {
 
     @Override
     public PreparedStatement Insert() throws SQLException {
-        String sql = "INSERT INTO tractors (modelo, velocidad, precio_venta, id_construccion) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO tractors (id, modelo, velocidad, precio_venta, id_construccion) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement =  DataSource.getConnection().prepareStatement(sql);
         statement.setInt(1, id);
         statement.setString(2, modelo);

@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.jdbc2.ejercicio.Database.DataSource;
 import com.jdbc2.ejercicio.Database.Interfaces.IQueriableResource;
 
 public class Plantacion implements IQueriableResource{
@@ -75,7 +76,15 @@ public class Plantacion implements IQueriableResource{
 
     @Override
     public PreparedStatement Insert() throws SQLException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Insert'");
+        //id nombre precio_compra precio_venta proxima_coshecha id_granjero
+        String sql = "INSERT INTO plantaciones (id, nombre, precio_compra, precio_venta, proxima_cosecha, id_granjero) VALUES (?, ?, ?, ?, ?, ?)";
+        PreparedStatement statement =  DataSource.getConnection().prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.setString(2, nombre);
+        statement.SetDouble(3, precio_compra);
+        statement.SetDouble(4, precio_venta);
+        statement.SetDate(5, proxima_coshecha);
+        statement.setInt(6, id_granjero);
+        return statement;
     }
 }

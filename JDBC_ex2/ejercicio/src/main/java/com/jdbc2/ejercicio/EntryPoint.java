@@ -91,7 +91,7 @@ public class EntryPoint {
                                     (String) dict.get("nombre"),
                                     Double.parseDouble((String) dict.get("precio_compra")),
                                     Double.parseDouble((String) dict.get("precio_venta")),
-                                    (Date) dict.get("proxima_cosecha"),
+                                    Date.valueOf((String) dict.get("proxima_cosecha")),
                                     Integer.parseInt((String) dict.get("id_granjero"))));
                         } catch (Exception e) {
                             Logger.LogError(e.toString());
